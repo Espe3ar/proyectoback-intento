@@ -1,5 +1,6 @@
 package com.ucema.proga3.clase.Controllers;
 
+import com.ucema.proga3.clase.Model.Aviso;
 import com.ucema.proga3.clase.Model.User;
 import com.ucema.proga3.clase.Servicios.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,11 @@ import java.util.List;
 public class UsuarioController {
     @Autowired
     private IUsuarioService UsuarioServicio;
+
+    @PostMapping(path = "/create")
+    public User createUsuario(@RequestBody User user) {
+        return this.UsuarioServicio.createUsuario(user);
+    }
 
     @GetMapping(path = "/all")
     public List<User> getAllUsuarios() {

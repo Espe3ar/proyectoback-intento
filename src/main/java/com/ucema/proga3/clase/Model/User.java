@@ -1,5 +1,6 @@
 package com.ucema.proga3.clase.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -49,7 +50,7 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST,CascadeType.REMOVE},fetch = FetchType.LAZY)
     @JsonIgnore
-    private ArrayList<Reserva> listaReserva;
+    private List<Reserva> listaReserva=new ArrayList<>();
 
 //Constructores
     public User(){}
@@ -125,7 +126,7 @@ public class User implements UserDetails {
         ListaAviso = listaAviso;
     }
 
-    public ArrayList<Reserva> getListaReserva() {
+    public List<Reserva> getListaReserva() {
         return listaReserva;
     }
 

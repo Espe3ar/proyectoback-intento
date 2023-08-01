@@ -31,8 +31,22 @@ public class UsuarioServiceImpt implements  IUsuarioService{
     @Override
     public User createUsuario(User usuario) {
         String contrasenia= usuario.getPassword();
-       usuario.setPassword(passwordEncoder.encode(contrasenia));
+        usuario.setPassword(passwordEncoder.encode(contrasenia));
+        String nombre=usuario.getNombre();
+        usuario.setNombre(nombre);
+        String apellido=usuario.getApellido();
+        usuario.setApellido(apellido);
+        String categoria=usuario.getCategoria();
+        usuario.setCategoria(categoria);
+        String genero=usuario.getGenero();
+        usuario.setGenero(genero);
+        String username=usuario.getUsername();
+        usuario.setUsername(username);
+        String email=usuario.getEmail();
+        usuario.setEmail(email);
+
         return this.usuarioRepository.save(usuario);
+
     }
     @Override
     public Role createRole(Role role) {

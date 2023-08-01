@@ -31,14 +31,6 @@ public class ClaseApplication {
 			User user2 = userService.createUsuario(new User("user2", "pass123", user));
 			User user3 = userService.createUsuario(new User("user3", "pass123", user));
 
-			Aviso aviso1= avisoService.createAviso("Este es el aviso numero 1 ", user1);
-			Aviso aviso2= avisoService.createAviso("Este es el aviso numero 2 ", user2);
-			Aviso aviso3= avisoService.createAviso("Este es el aviso numero 3 ", user3);
-			Aviso aviso4= avisoService.createAviso("Este es el aviso numero 4 ", user1);
-			Aviso aviso5= avisoService.createAviso("Este es el aviso numero 5 ", user2);
-
-
-
 		};
 
 	}
