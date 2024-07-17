@@ -1,7 +1,6 @@
 package com.ucema.proga3.clase;
 
 import com.ucema.proga3.clase.Model.Aviso;
-import com.ucema.proga3.clase.Model.Role;
 import com.ucema.proga3.clase.Model.User;
 import com.ucema.proga3.clase.Servicios.IAvisoService;
 import com.ucema.proga3.clase.Servicios.IUsuarioService;
@@ -22,14 +21,10 @@ public class ClaseApplication {
 	CommandLineRunner run(@Autowired IAvisoService avisoService, @Autowired IUsuarioService userService){
 
 		return args -> {
-			Role admin = new Role("ADMIN");
-			Role user = new Role("USER");
-			userService.createRole(admin);
-			userService.createRole(user);
-			User userAdmin = userService.createUsuario(new User("useradmin", "pass123", admin));
-			User user1 = userService.createUsuario(new User("user1", "pass123", user));
-			User user2 = userService.createUsuario(new User("user2", "pass123", user));
-			User user3 = userService.createUsuario(new User("user3", "pass123", user));
+			User userAdmin = userService.createUsuario(new User("useradmin", "pass123"));
+			User user1 = userService.createUsuario(new User("user1", "pass123"));
+			User user2 = userService.createUsuario(new User("user2", "pass123"));
+			User user3 = userService.createUsuario(new User("user3", "pass123"));
 
 		};
 

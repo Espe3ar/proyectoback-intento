@@ -11,18 +11,18 @@ public class Aviso {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id_aviso")
   private Long id;
-  @Column(updatable = true, nullable = false, length = 300)
+  @Column(updatable = true, nullable = false, length = 30000)
   private String texto;
 
 
   @ManyToOne(cascade = {CascadeType.MERGE})
   @JoinColumn(name = "id_usuario", nullable = true)
-  @JsonIgnore
   private User user;
 
     public Aviso(){}
-    public Aviso(String texto) {
-        this.texto = texto;
+    public Aviso(String texto, User user) {
+      this.texto = texto;
+      this.user=user;
     }
 
     public String getTexto() {
@@ -36,4 +36,11 @@ public class Aviso {
   public void setTexto(String aviso) {
         aviso = texto;
     }
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 }

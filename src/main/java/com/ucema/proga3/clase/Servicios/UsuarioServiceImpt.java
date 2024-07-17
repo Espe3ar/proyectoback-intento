@@ -1,10 +1,8 @@
 package com.ucema.proga3.clase.Servicios;
 
 import com.ucema.proga3.clase.Authentication.JwtUtilities;
-import com.ucema.proga3.clase.Model.Role;
 import com.ucema.proga3.clase.Model.User;
 import com.ucema.proga3.clase.Repositorios.IUsuarioRepository;
-import com.ucema.proga3.clase.Repositorios.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,11 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpt implements  IUsuarioService{
-    @Autowired
-    private RoleRepository roleRepository;
     @Autowired
     private IUsuarioRepository usuarioRepository;
 
@@ -48,10 +45,6 @@ public class UsuarioServiceImpt implements  IUsuarioService{
         return this.usuarioRepository.save(usuario);
 
     }
-    @Override
-    public Role createRole(Role role) {
-        return this.roleRepository.save(role);
-    }
 
     @Override
     public boolean checkUserById(Long id) {
@@ -62,7 +55,7 @@ public class UsuarioServiceImpt implements  IUsuarioService{
         User user = this.usuarioRepository.findByUsername(username).orElse(null);
         if (user == null) { return null; }
         // Generar el token a retornar
-        String token = jwtUtilities.generateToken(user.getUsername(), user.getId(), user.getRole().getName());
+        String token = jwtUtilities.generateToken(user.getUsername(), user.getId());
         return token;
 
     }
@@ -72,13 +65,12 @@ public class UsuarioServiceImpt implements  IUsuarioService{
         return this.usuarioRepository.findByUsername(username).orElse(null);
     }
 
-
     @Override
     public List<User> findAll_Usuarios(){
         return this.usuarioRepository.findAll();
     }
     @Override
     public User findUsuarioBy_Name(String name){
-        return this.usuarioRepository.findByNombre(name).orElse(null);
+        return this.usuarioRepository.findByNombre(name).orElse(null);}
     }
-}
+

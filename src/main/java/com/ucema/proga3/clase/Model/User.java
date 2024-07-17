@@ -23,9 +23,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long id;
-    @Column(length = 20)
+    @Column(length = 30)
     private String nombre;
-    @Column(length = 20)
+    @Column(length = 30)
     private String Apellido;
 
     @Column(length = 100, nullable = false)
@@ -37,16 +37,13 @@ public class User implements UserDetails {
     @JsonIgnore
     private String Contrasenia;
 
-    @Column(updatable = true,length = 10)
+    @Column(updatable = true,length = 20)
     private String Categoria;
-    @Column(updatable = false,length = 10)
+    @Column(updatable = false,length = 20)
     private  String Genero;
     @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST,CascadeType.REMOVE},fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Aviso> ListaAviso=new ArrayList<>();
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {})
-    @JoinColumn(name = "id_role", nullable = false)
-    private Role role;
 
     @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST,CascadeType.REMOVE},fetch = FetchType.LAZY)
     @JsonIgnore
@@ -54,10 +51,9 @@ public class User implements UserDetails {
 
 //Constructores
     public User(){}
-    public User(String username, String contrasenia,Role role){
+    public User(String username, String contrasenia){
         this.username=username;
         this.Contrasenia=contrasenia;
-        this.role=role;
 
     }
     public User(String nombre, String apellido, String email, String contrasenia, String categoria, String genero) {
@@ -68,6 +64,7 @@ public class User implements UserDetails {
         this.Categoria = categoria;
         this.Genero = genero;
     }
+
 
     //Getters y Setters
     public String getNombre() {
@@ -134,17 +131,13 @@ public class User implements UserDetails {
         this.listaReserva = listaReserva;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public void CrearAviso(Aviso aviso){
         ListaAviso.add(aviso);
 
+    }
+    public void deleteAviso(Aviso aviso) {
+        this.ListaAviso.remove(aviso);
     }
 
     @Override
@@ -167,10 +160,10 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Override
+   @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role.getName()));
+         /* authorities.add(new SimpleGrantedAuthority(role.getName()));*/
         return authorities;
     }
     @Override

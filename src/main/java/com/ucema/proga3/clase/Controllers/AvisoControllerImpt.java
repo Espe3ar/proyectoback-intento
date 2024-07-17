@@ -3,7 +3,10 @@ package com.ucema.proga3.clase.Controllers;
 import com.ucema.proga3.clase.Model.Aviso;
 import com.ucema.proga3.clase.Servicios.AvisoServiceImpt;
 import com.ucema.proga3.clase.Servicios.IAvisoService;
+import com.ucema.proga3.clase.dto.AvisoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,20 +33,24 @@ public class AvisoControllerImpt {
 
     @PostMapping(path = "/create")
     public Aviso createAviso(@RequestBody Aviso aviso) {
-        return this.avisoServicio.createAviso(aviso.getTexto(),aviso.getUser());
+       return this.avisoServicio.createAviso(aviso.getTexto(), aviso.getUser());
     }
 //Aca esta mi duda
 
 //Cambiar aca a string
 
-    @PutMapping(path = "update")
+   // @PostMapping(path = "/create")
+    //public Aviso createAviso(@RequestBody String aviso) { // @RequestBody indica que el parametro viene en el cuerpo del request, se mapea automaticamente a un objeto Libro
+       // return avisoServicio.createAviso(aviso);
+   // }
+    @PutMapping(path = "/update")
     public Aviso updateAviso(@RequestBody Aviso aviso) {
         return this.avisoServicio.updateAviso(aviso, aviso.getTexto());
     }
 
-    @DeleteMapping(path = "delete")
+    @DeleteMapping(path = "/delete")
     public Aviso deleteAviso(@RequestBody Aviso aviso) {
-        return this.avisoServicio.deleteAviso(aviso);
+       return this.avisoServicio.deleteAviso(aviso);
     }
 
 
