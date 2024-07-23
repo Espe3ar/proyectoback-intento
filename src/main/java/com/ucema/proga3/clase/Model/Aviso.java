@@ -1,7 +1,6 @@
 package com.ucema.proga3.clase.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,31 +10,38 @@ public class Aviso {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id_aviso")
   private Long id;
+
   @Column(updatable = true, nullable = false, length = 30000)
   private String texto;
 
-
   @ManyToOne(cascade = {CascadeType.MERGE})
   @JoinColumn(name = "id_usuario", nullable = true)
+  @JsonIgnore
   private User user;
 
-    public Aviso(){}
-    public Aviso(String texto, User user) {
-      this.texto = texto;
-      this.user=user;
-    }
+  public Aviso() {}
 
-    public String getTexto() {
-        return texto;
-    }
-    public User getUser(){return user;}
-    public void setUser(User user){
-      user= user;
+  public Aviso(String texto, User user) {
+    this.texto = texto;
+    this.user = user;
   }
 
-  public void setTexto(String aviso) {
-        aviso = texto;
-    }
+  public String getTexto() {
+    return texto;
+  }
+
+  public void setTexto(String texto) {
+    this.texto = texto;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
   public Long getId() {
     return id;
   }

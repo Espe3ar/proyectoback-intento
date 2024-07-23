@@ -32,17 +32,10 @@ public class AvisoControllerImpt {
     public List<Aviso> getAvisoByTexto(@RequestParam String texto){return this.avisoServicio.findBy_Texto(texto); }
 
     @PostMapping(path = "/create")
-    public Aviso createAviso(@RequestBody Aviso aviso) {
-       return this.avisoServicio.createAviso(aviso.getTexto(), aviso.getUser());
-    }
-//Aca esta mi duda
+    public Aviso createAviso(@RequestParam String textoaviso) {
+    return this.avisoServicio.createAviso(textoaviso);
+}
 
-//Cambiar aca a string
-
-   // @PostMapping(path = "/create")
-    //public Aviso createAviso(@RequestBody String aviso) { // @RequestBody indica que el parametro viene en el cuerpo del request, se mapea automaticamente a un objeto Libro
-       // return avisoServicio.createAviso(aviso);
-   // }
     @PutMapping(path = "/update")
     public Aviso updateAviso(@RequestBody Aviso aviso) {
         return this.avisoServicio.updateAviso(aviso, aviso.getTexto());

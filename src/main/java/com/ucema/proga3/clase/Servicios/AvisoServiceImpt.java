@@ -21,18 +21,6 @@ public class AvisoServiceImpt implements IAvisoService{
     @Autowired
     private UsuarioServiceImpt userService;
 
-
-
-    @Override
-    @Transactional
-    public Aviso createAviso(Aviso aviso) {return this.avisoRepository.save(aviso);}
-    @Override
-    @Transactional
-    public Aviso createAviso(String texto, User usuario) {
-        Aviso aviso= new Aviso(texto,usuario);
-        usuario.CrearAviso(aviso);
-        return this.avisoRepository.save(aviso);
-    }
      @Override
     @Transactional
     public Aviso createAviso(String texto) {

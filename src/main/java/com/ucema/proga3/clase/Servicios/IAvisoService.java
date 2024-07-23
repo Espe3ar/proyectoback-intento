@@ -6,9 +6,6 @@ import com.ucema.proga3.clase.Model.User;
 import java.util.List;
 
 public interface IAvisoService {
-    public Aviso createAviso(Aviso aviso);
-
-    public Aviso createAviso(String texto, User usuario);
 
     public Aviso createAviso(String texto);
     List<Aviso> findBy_Texto(String texto);

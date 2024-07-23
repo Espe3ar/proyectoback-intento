@@ -71,8 +71,8 @@ public class User implements UserDetails {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        nombre = nombre;
+    public void setNombre(String Nombre) {
+        nombre = Nombre;
     }
 
     public String getApellido() {
