@@ -3,6 +3,7 @@ package com.ucema.proga3.clase.Model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import com.ucema.proga3.clase.Model.Sede;
 
@@ -22,7 +23,7 @@ public abstract class Cancha {
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "id_sede", nullable = false)
     private Sede sede;
-   @OneToMany(mappedBy = "canchareservada",cascade = {CascadeType.PERSIST,CascadeType.REMOVE},fetch = FetchType.LAZY)
+   @OneToMany(mappedBy = "canchaReservada",cascade = {CascadeType.PERSIST,CascadeType.REMOVE},fetch = FetchType.LAZY)
     private List<Reserva> listaReservas;
 
     public Sede getSede() {
@@ -39,17 +40,17 @@ public abstract class Cancha {
         this.PrecioxHora=PrecioxHora;
         this.listaReservas =new ArrayList<>();
     }
-    public boolean Disponible(LocalDateTime fYhsEntrada, LocalDateTime fYhsSalida){
+   /* public boolean Disponible(Date fYhsEntrada, Date fYhsSalida){
         boolean dispo=true;
 
-        for (Reserva reserva: listaReservas) {
-            if(reserva.getFechayHoraEntrada().isEqual(fYhsEntrada)){
+        //for (Reserva reserva: listaReservas) {
+            //if(reserva.getFechayHoraEntrada().isEqual(fYhsEntrada)){
                 dispo=false;
                 break;
             }
         }
         return dispo;
-    }
+    }*/
 
 
     public int getNumero() {

@@ -26,7 +26,7 @@ public class AvisoControllerImpt {
         return "funciona";
     }
     @GetMapping(path= "")
-    public List<Aviso> getAllAvisos(){return this.avisoServicio.findAll_Avisos();}
+    public List<AvisoDTO> getAllAvisos(){return this.avisoServicio.findAll_Avisos();}
 
     @GetMapping(path = "/search")
     public List<Aviso> getAvisoByTexto(@RequestParam String texto){return this.avisoServicio.findBy_Texto(texto); }
@@ -36,14 +36,15 @@ public class AvisoControllerImpt {
     return this.avisoServicio.createAviso(textoaviso);
 }
 
-    @PutMapping(path = "/update")
+    @PutMapping(path = "/update/{id}")
     public Aviso updateAviso(@RequestBody Aviso aviso) {
         return this.avisoServicio.updateAviso(aviso, aviso.getTexto());
     }
 
-    @DeleteMapping(path = "/delete")
-    public Aviso deleteAviso(@RequestBody Aviso aviso) {
-       return this.avisoServicio.deleteAviso(aviso);
+
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteAviso(@PathVariable Long id) {
+        this.avisoServicio.deleteAviso(id);
     }
 
 

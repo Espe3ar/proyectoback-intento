@@ -3,6 +3,8 @@ package com.ucema.proga3.clase.Servicios;
 import com.ucema.proga3.clase.Model.Aviso;
 import com.ucema.proga3.clase.Model.User;
 import com.ucema.proga3.clase.Repositorios.IAvisoRepository;
+import com.ucema.proga3.clase.dto.AvisoDTO;
+import com.ucema.proga3.clase.dto.UserDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,11 +41,10 @@ public class AvisoServiceImpt implements IAvisoService{
         Aviso updateAviso=this.avisoRepository.save(aviso);
         return updateAviso;
    }
-   //Puede ser que este mal:
-   @Override
-   @Transactional
-   public Aviso deleteAviso(Aviso aviso){this.avisoRepository.delete(aviso);
-    return aviso;
+    @Override
+    @Transactional
+    public void deleteAviso(Long id) {
+        this.avisoRepository.deleteById(id);
     }
 
     @Override
@@ -54,8 +56,6 @@ public class AvisoServiceImpt implements IAvisoService{
     }
 
 
-
-
     @Override
     @Transactional
     public List<Aviso> findBy_Texto(String texto) {
@@ -64,7 +64,23 @@ public class AvisoServiceImpt implements IAvisoService{
 
     @Override
     @Transactional
-    public List<Aviso> findAll_Avisos() {
-        return (List<Aviso>) avisoRepository.findAll();
+    public List<AvisoDTO> findAll_Avisos() {
+        List<Aviso> avisoList = avisoRepository.findAll();
+
+        List<AvisoDTO> avisoDTOList = new ArrayList<>();
+
+
+        for (Aviso aviso : avisoList) {
+            AvisoDTO dto = new AvisoDTO(aviso.getId(), aviso.getTexto(), new UserDTO(
+                    aviso.getUser().getUsername(),
+                    aviso.getUser().getNombre(),
+                    aviso.getUser().getApellido(),
+                    aviso.getUser().getEmail(),
+                    aviso.getUser().getTelefono()
+            ));
+            avisoDTOList.add(dto);
+        }
+
+        return avisoDTOList;
     }
 }

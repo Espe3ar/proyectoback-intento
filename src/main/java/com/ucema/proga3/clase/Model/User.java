@@ -1,15 +1,10 @@
 package com.ucema.proga3.clase.Model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +22,9 @@ public class User implements UserDetails {
     private String nombre;
     @Column(length = 30)
     private String Apellido;
+    @Column(length = 50)
+    private String telefono;
+
 
     @Column(length = 100, nullable = false)
     private String username;
@@ -56,9 +54,10 @@ public class User implements UserDetails {
         this.Contrasenia=contrasenia;
 
     }
-    public User(String nombre, String apellido, String email, String contrasenia, String categoria, String genero) {
+    public User(String nombre, String apellido, String telefono, String email, String contrasenia, String categoria, String genero) {
         this.nombre = nombre;
         this.Apellido = apellido;
+        this.telefono = telefono;
         this.Email = email;
         this.Contrasenia = contrasenia;
         this.Categoria = categoria;
@@ -192,6 +191,13 @@ public class User implements UserDetails {
     }
 
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 }
 
 

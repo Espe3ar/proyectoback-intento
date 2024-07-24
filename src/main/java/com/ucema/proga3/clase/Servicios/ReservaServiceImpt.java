@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,7 +16,7 @@ public class ReservaServiceImpt implements IReservaService{
     @Autowired
     private IReservaRepository reservaRepository;
     @Override
-    public Reserva createReserva(LocalDateTime fechayHoraEntrada, LocalDateTime fechayHoraSalida, Cancha canchareservada) {
+    public Reserva createReserva(Date fechayHoraEntrada, Date fechayHoraSalida, String canchareservada) {
         Reserva reserva=new Reserva(fechayHoraEntrada,fechayHoraSalida,canchareservada);
         Reserva savedReserva=this.reservaRepository.save(reserva);
         return savedReserva;
@@ -33,4 +34,10 @@ public class ReservaServiceImpt implements IReservaService{
      return this.reservaRepository.findAll();
     }
 
+
+    @Override
+    @Transactional
+    public void deleteReserva(Long id) {
+        this.reservaRepository.deleteById(id);
+    }
 }

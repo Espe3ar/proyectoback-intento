@@ -1,9 +1,8 @@
 package com.ucema.proga3.clase.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "reserva")
@@ -12,57 +11,64 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reserva")
     private Long id;
+
     @Column(name = "fyhs_entrada")
-    private LocalDateTime FechayHoraEntrada;
+    private Date fechayHoraEntrada;
+
     @Column(name = "fyhs_salida")
-    private LocalDateTime FechayHoraSalida;
+    private Date fechayHoraSalida;
+
+    @Column(name = "cancha_reservada")
+    private String canchaReservada;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "id_cancha", nullable = false)
-    private Cancha canchareservada;
-
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = true)
+    @JsonIgnore
     private User user;
-    public Reserva() {
+
+    public Reserva() {}
+
+    public Reserva(Date fechayHoraEntrada, Date fechayHoraSalida, String canchaReservada) {
+        this.fechayHoraEntrada = fechayHoraEntrada;
+        this.fechayHoraSalida = fechayHoraSalida;
+        this.canchaReservada = canchaReservada;
     }
 
-    public Reserva(LocalDateTime fechayHoraEntrada, LocalDateTime fechayHoraSalida, Cancha canchareservada) {
-        this.FechayHoraEntrada = fechayHoraEntrada;
-        this.FechayHoraSalida = fechayHoraSalida;
-        this.canchareservada = canchareservada;
+    // Getters y Setters
+
+    public Long getId() {
+        return id;
     }
 
-    public LocalDateTime getFechayHoraSalida() {
-        return FechayHoraSalida;
+    public Date getFechayHoraEntrada() {
+        return fechayHoraEntrada;
     }
 
-    public void setFechayHoraSalida(LocalDateTime fechayHoraSalida) {
-        FechayHoraSalida = fechayHoraSalida;
+    public void setFechayHoraEntrada(Date fechayHoraEntrada) {
+        this.fechayHoraEntrada = fechayHoraEntrada;
     }
 
-    public LocalDateTime getFechayHoraEntrada() {
-        return FechayHoraEntrada;
+    public Date getFechayHoraSalida() {
+        return fechayHoraSalida;
     }
 
-    public void setFechayHoraEntrada(LocalDateTime fechayHoraEntrada) {
-        FechayHoraEntrada = fechayHoraEntrada;
+    public void setFechayHoraSalida(Date fechayHoraSalida) {
+        this.fechayHoraSalida = fechayHoraSalida;
     }
 
-    public Cancha getCanchareservada() {
-        return canchareservada;
+    public String getCanchaReservada() {
+        return canchaReservada;
     }
 
-    public void setCanchareservada(Cancha canchareservada) {
-        this.canchareservada = canchareservada;
-    }
-    public float CalcularPrecioTotal(){
-        Duration duracionReserva= Duration.between(this.getFechayHoraEntrada(),this.getFechayHoraSalida());
-        float horasReservadas= duracionReserva.toHours();
-        return canchareservada.getPrecioxHora()*horasReservadas+canchareservada.CalcularCostoLuz();
-
+    public void setCanchaReservada(String canchaReservada) {
+        this.canchaReservada = canchaReservada;
     }
 
+    public User getUser() {
+        return user;
+    }
 
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
